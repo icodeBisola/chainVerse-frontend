@@ -1,3 +1,6 @@
+"use client";
+
+import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GeneralSettings } from "./_components/general-settings";
 import { SecuritySettings } from "./_components/security-settings";
@@ -9,7 +12,7 @@ export default function SettingsPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
           <p className="text-muted-foreground">
-            Manage your account settings and preferences
+            Manage your account settings and preference
           </p>
         </div>
         
