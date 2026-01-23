@@ -27,13 +27,25 @@ const profileFormSchema = z.object({
     })
     .max(30, {
       message: "Username must not be longer than 30 characters.",
+    })
+    .regex(/^[a-zA-Z0-9_-]+$/, {
+      message: "Username can only contain letters, numbers, underscores, and hyphens.",
     }),
   email: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Please enter your email address.",
     })
-    .email(),
-  bio: z.string().max(160).min(4),
+    .email({
+      message: "Please enter a valid email address.",
+    }),
+  bio: z
+    .string()
+    .max(160, {
+      message: "Bio must not exceed 160 characters.",
+    })
+    .min(4, {
+      message: "Bio must be at least 4 characters.",
+    }),
   timezone: z.string({
     required_error: "Please select a timezone.",
   }),
@@ -76,8 +88,7 @@ export function GeneralSettings() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "There was an error updating your profile. Please try again.",
-        variant: "destructive"
+        description: "There was an error updating your profile. Please try again."
       });
     } finally {
       setIsSubmitting(false);
@@ -86,64 +97,100 @@ export function GeneralSettings() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Profile</h3>
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold tracking-tight">Profile Information</h3>
         <p className="text-sm text-muted-foreground">
           This is how others will see you on the platform.
         </p>
       </div>
       
       {form.formState.errors.root?.serverError && (
-        <div className="bg-destructive/15 p-4 rounded-md text-sm text-destructive">
+        <div className="bg-destructive/15 p-4 rounded-md text-sm text-destructive border border-destructive/30">
           {form.formState.errors.root.serverError.message}
         </div>
       )}
+      
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Enter your username" 
+                      {...field} 
+                      className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name. It can be your real name or a pseudonym.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="your.email@example.com" 
+                      {...field} 
+                      className="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    This is the email associated with your account.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          
           <FormField
             control={form.control}
-            name="username"
+            name="bio"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Bio</FormLabel>
                 <FormControl>
-                  <Input placeholder="username" {...field} />
+                  <textarea
+                    placeholder="Tell us a little bit about yourself..."
+                    {...field}
+                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                  />
                 </FormControl>
                 <FormDescription>
-                  This is your public display name. It can be your real name or a pseudonym.
+                  Brief description for your profile. Max 160 characters.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="your.email@example.com" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is the email associated with your account.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button 
-            type="submit" 
-            disabled={!isDirty || !isValid || isSubmitting}
-            className="min-w-[120px]"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Updating...
-              </>
-            ) : 'Update profile'}
-          </Button>
+          
+          <div className="flex justify-end pt-4">
+            <Button 
+              type="submit" 
+              disabled={!isDirty || !isValid || isSubmitting}
+              className="min-w-[140px] transition-all duration-200 hover:scale-[1.02]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Updating...
+                </>
+              ) : 'Update Profile'}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

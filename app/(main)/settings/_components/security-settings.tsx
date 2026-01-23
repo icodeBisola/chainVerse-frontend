@@ -131,8 +131,7 @@ export function SecuritySettings() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "There was an error updating your password. Please try again.",
-        variant: "destructive"
+        description: "There was an error updating your password. Please try again."
       });
     } finally {
       setIsSubmitting(false);
@@ -140,146 +139,152 @@ export function SecuritySettings() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Change Password</h3>
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold tracking-tight">Change Password</h3>
         <p className="text-sm text-muted-foreground">
           Update your password associated with your account.
         </p>
       </div>
       
       {form.formState.errors.root?.serverError && (
-        <div className="bg-destructive/15 p-4 rounded-md text-sm text-destructive mb-6">
+        <div className="bg-destructive/15 p-4 rounded-md text-sm text-destructive border border-destructive/30 mb-6">
           {form.formState.errors.root.serverError.message}
         </div>
       )}
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="currentPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Current Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input 
-                      type={showCurrentPassword ? "text" : "password"} 
-                      placeholder="Enter your current password" 
-                      {...field} 
-                      className="pr-10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      tabIndex={-1}
-                    >
-                      {showCurrentPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="space-y-6">
+            <FormField
+              control={form.control}
+              name="currentPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Current Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        type={showCurrentPassword ? "text" : "password"} 
+                        placeholder="Enter your current password" 
+                        {...field} 
+                        className="pr-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showCurrentPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="newPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>New Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        type={showNewPassword ? "text" : "password"} 
+                        placeholder="Enter your new password" 
+                        {...field} 
+                        className="pr-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showNewPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                    <PasswordStrengthMeter password={newPassword} />
+                  </FormControl>
+                  <FormDescription>
+                    Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm New Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        type={showConfirmPassword ? "text" : "password"} 
+                        placeholder="Confirm your new password" 
+                        {...field} 
+                        className="pr-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           
-          <FormField
-            control={form.control}
-            name="newPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>New Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input 
-                      type={showNewPassword ? "text" : "password"} 
-                      placeholder="Enter your new password" 
-                      {...field} 
-                      className="pr-10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowNewPassword(!showNewPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      tabIndex={-1}
-                    >
-                      {showNewPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                  <PasswordStrengthMeter password={newPassword} />
-                </FormControl>
-                <FormDescription>
-                  Password must be at least 8 characters long.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm New Password</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input 
-                      type={showConfirmPassword ? "text" : "password"} 
-                      placeholder="Confirm your new password" 
-                      {...field} 
-                      className="pr-10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      tabIndex={-1}
-                    >
-                      {showConfirmPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <Button 
-            type="submit" 
-            disabled={!isDirty || !isValid || isSubmitting}
-            className="min-w-[150px]"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Updating...
-              </>
-            ) : 'Update Password'}
-          </Button>
+          <div className="flex justify-end pt-4">
+            <Button 
+              type="submit" 
+              disabled={!isDirty || !isValid || isSubmitting}
+              className="min-w-[160px] transition-all duration-200 hover:scale-[1.02]"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Updating...
+                </>
+              ) : 'Update Password'}
+            </Button>
+          </div>
         </form>
       </Form>
       
-      <div className="pt-8 border-t">
-        <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Add an extra layer of security to your account.
-        </p>
-        <Button variant="outline">
+      <div className="pt-8 border-t border-border/50">
+        <div className="space-y-2 mb-4">
+          <h3 className="text-lg font-semibold tracking-tight">Two-Factor Authentication</h3>
+          <p className="text-sm text-muted-foreground">
+            Add an extra layer of security to your account.
+          </p>
+        </div>
+        <Button variant="outline" className="transition-colors hover:bg-accent">
           Enable Two-Factor Authentication
         </Button>
       </div>
