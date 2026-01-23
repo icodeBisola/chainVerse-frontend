@@ -1,9 +1,14 @@
 "use client"
 
-import { BookOpen, Award, Coins, TrendingUp } from "lucide-react"
+import { BookOpen, Award, Coins, TrendingUp, Wallet } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+
+import { WeeklyLearningChart } from "./dashboard/student/WeeklyLearningChart"
+import { UpcomingDeadlines } from "./dashboard/student/UpcomingDeadlines"
+import { LearningProgressCards } from "./dashboard/student/LearningProgressCards"
+import { RecentActivityFeed } from "./dashboard/student/RecentActivityFeed"
 
 const summaryData = [
   {
@@ -22,7 +27,7 @@ const summaryData = [
     title: "XLM Balance",
     value: "250 XLM",
     subtitle: "≈ $50.00 USD",
-    icon: Coins,
+    icon: Wallet,
   },
   {
     title: "Overall Progress",
@@ -50,10 +55,10 @@ export function DashboardContent() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto">
+      <main className="flex-1 bg-gray-50 p-6 overflow-y-auto">
+        <div className="max-w-7xl mx-auto space-y-8">
           {/* Welcome Section */}
-          <div className="mb-8">
+          <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, Student</h2>
             <p className="text-gray-600">{"Here's an overview of your learning progress and activities."}</p>
           </div>
@@ -63,7 +68,7 @@ export function DashboardContent() {
             {summaryData.map((item) => {
               const Icon = item.icon
               return (
-                <Card key={item.title} className="bg-white">
+                <Card key={item.title} className="bg-white border-gray-200">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-600">{item.title}</CardTitle>
                     <Icon className="h-5 w-5 text-gray-400" />
@@ -80,6 +85,26 @@ export function DashboardContent() {
                 </Card>
               )
             })}
+          </div>
+
+          {/* Chart and Deadlines Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <WeeklyLearningChart />
+            </div>
+            <div className="lg:col-span-1">
+              <UpcomingDeadlines />
+            </div>
+          </div>
+
+          {/* Learning Progress Cards */}
+          <div>
+            <LearningProgressCards />
+          </div>
+
+          {/* Recent Activity Feed */}
+          <div className="max-w-4xl">
+            <RecentActivityFeed />
           </div>
         </div>
       </main>
