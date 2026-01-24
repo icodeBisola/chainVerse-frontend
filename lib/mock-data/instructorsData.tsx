@@ -101,7 +101,7 @@ export const instructorRoutes = [
     isActive: false,
   },
   {
-    name: 'Account',
+    name: 'Profile',
     icon: (
       <svg
         className="w-5 h-5"
