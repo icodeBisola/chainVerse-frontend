@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from '@/components/NavBar';
 
 export default function MainLayout({
   children,
@@ -8,9 +8,7 @@ export default function MainLayout({
   return (
     <>
       <NavBar />
-      <main className="min-h-screen">
-          {children}
-        </main>
+      <main className="min-h-screen">{children}</main>
     </>
   );
 }

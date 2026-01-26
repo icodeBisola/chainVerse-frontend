@@ -25,17 +25,17 @@ const navigationItems: RouteType[] = [
   {
     name: 'My Courses',
     icon: BookOpen,
-    route: '/students/courses',
+    route: '/students/dashboard/courses',
   },
   {
     name: 'Certificates',
     icon: Award,
-    route: '/students/certificates',
+    route: '/students/dashboard/certificates',
   },
   {
     name: 'Transactions',
     icon: CreditCard,
-    route: '/students/transactions',
+    route: '/students/dashboard/transactions',
   },
 ];
 
@@ -43,22 +43,17 @@ const accountItems: RouteType[] = [
   {
     name: 'Profile',
     icon: User,
-    route: '/students/profile',
+    route: '/students/dashboard/profile',
   },
   {
     name: 'Settings',
     icon: Settings,
-    route: '/students/settings',
-  },
-  {
-    name: 'Back to Home',
-    icon: Home,
-    route: '/',
+    route: '/students/dashboard/settings',
   },
   {
     name: 'Disconnect Wallet',
     icon: LogOut,
-    route: '/students/disconnect',
+    route: '/students/dashboard/disconnect',
   },
 ];
 
