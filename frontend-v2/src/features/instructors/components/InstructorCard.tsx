@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import { Instructor } from '@/data/instructors';
+import type { Instructor } from '../types/instructor.types';
 import Link from 'next/link';
 
 interface InstructorCardProps {
