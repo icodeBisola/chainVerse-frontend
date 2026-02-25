@@ -1,4 +1,5 @@
 import { Header } from '@/src/components/common/Header';
+import { Footer } from '@/src/components/common/Footer';
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
       <main className="min-h-screen">
         {children}
       </main>
+      <Footer />
     </>
   );
 }
