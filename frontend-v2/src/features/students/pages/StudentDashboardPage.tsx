@@ -2,6 +2,7 @@ import React from "react";
 import { useStudents } from "../hooks/useStudents"; // Assuming this follows the useCourses pattern
 import { StudentList } from "../components/StudentList";
 import { StudentStats } from "../components/StudentStats";
+import { PageHeader } from "@/src/shared/components/layout/PageHeader";
 
 export const StudentDashboardPage: React.FC = () => {
   const { students, isLoading, error, refresh } = useStudents();
@@ -15,15 +16,11 @@ export const StudentDashboardPage: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <header className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Student Dashboard</h1>
-        <button
-          onClick={refresh}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          Refresh Data
-        </button>
-      </header>
+      <PageHeader
+        title="Student Directory"
+        subtitle="Manage and view all enrolled students."
+        action={<button className="btn-primary">Add Student</button>}
+      />
 
       {isLoading ? (
         <div className="animate-pulse space-y-4">
